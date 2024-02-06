@@ -1,0 +1,9 @@
+-- CreateTable
+CREATE TABLE "poll" (
+    "id" TEXT NOT NULL,
+    "tittle" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updateAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "poll_pkey" PRIMARY KEY ("id")
+);
