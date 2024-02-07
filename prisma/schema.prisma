@@ -8,10 +8,36 @@ datasource db {
 }
 
 model Poll {
-  id        String   @id @default(uuid())
+  id        String        @id @default(uuid())
   tittle    String
-  createdAt DateTime @default(now())
-  updateAt  DateTime @default(now())
+  createdAt DateTime      @default(now())
+  updateAt  DateTime      @default(now())
+  options   PollOptions[]
+  votes     Votes[]
 
   @@map("poll")
+}
+
+model PollOptions {
+  id     String  @id @default(uuid())
+  tittle String
+  pollId String
+  poll   Poll    @relation(fields: [pollId], references: [id])
+  votes  Votes[]
+
+  @@map("poll-options")
+}
+
+model Votes {
+  id            Int      @id @default(autoincrement())
+  sessionId     String
+  pollOptionsId String
+  pollId        String
+  createdAt     DateTime @default(now())
+
+  pollOption PollOptions @relation(fields: [pollOptionsId], references: [id])
+  poll       Poll        @relation(fields: [pollId], references: [id])
+
+  @@unique([sessionId, pollId])
+  @@map("votes")
 }
